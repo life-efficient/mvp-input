@@ -1,0 +1,53 @@
+0 verbose cli [
+0 verbose cli   '/usr/local/Cellar/node/15.0.1/bin/node',
+0 verbose cli   '/usr/local/bin/npm',
+0 verbose cli   'i',
+0 verbose cli   '--no-cache'
+0 verbose cli ]
+1 info using npm@7.0.3
+2 info using node@v15.0.1
+3 timing config:load:defaults Completed in 2ms
+4 timing config:load:file:/usr/local/lib/node_modules/npm/npmrc Completed in 1ms
+5 timing config:load:builtin Completed in 1ms
+6 timing config:load:cli Completed in 2ms
+7 timing config:load:env Completed in 0ms
+8 timing config:load:file:/Users/ice/mvp-input/.npmrc Completed in 1ms
+9 timing config:load:project Completed in 1ms
+10 timing config:load:file:/Users/ice/.npmrc Completed in 0ms
+11 timing config:load:user Completed in 0ms
+12 timing config:load:file:/usr/local/etc/npmrc Completed in 0ms
+13 timing config:load:global Completed in 0ms
+14 timing config:load:cafile Completed in 0ms
+15 timing config:load:validate Completed in 0ms
+16 timing config:load:setUserAgent Completed in 1ms
+17 timing config:load:setEnvs Completed in 0ms
+18 timing config:load Completed in 7ms
+19 verbose npm-session 0945c64caa2bfb0d
+20 timing npm:load Completed in 15ms
+21 http fetch GET 200 https://registry.npmjs.org/npm 739ms
+22 http fetch GET 304 https://registry.npmjs.org/npm 79ms (from cache)
+23 timing arborist:ctor Completed in 1ms
+24 timing idealTree Completed in 6ms
+25 timing command:install Completed in 8ms
+26 notice [40m[37m[39m[49m
+26 notice [40m[37mNew [32mpatch[39m[37m version of npm available! [31m7.0.3[39m[37m -> [32m7.0.10[39m[37m[39m[49m
+26 notice [40m[37mChangelog: [36mhttps://github.com/npm/cli/releases/tag/v7.0.10[39m[37m[39m[49m
+26 notice [40m[37mRun [32mnpm install -g npm@7.0.10[39m[37m to update![39m[49m
+26 notice [40m[37m[39m[49m
+27 verbose stack JSONParseError: Unexpected token "}" (0x7D) in JSON at position 1626 while parsing near "...r-dom\": \"^5.2.0\",\n  },\n  \"jest\": {\n    \"..."
+27 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-package-json-fast/index.js:6:27
+27 verbose stack     at async Arborist.buildIdealTree (/usr/local/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/build-ideal-tree.js:199:7)
+27 verbose stack     at async Promise.all (index 1)
+27 verbose stack     at async Arborist.reify (/usr/local/lib/node_modules/npm/node_modules/@npmcli/arborist/lib/arborist/reify.js:121:5)
+27 verbose stack     at async install (/usr/local/lib/node_modules/npm/lib/install.js:40:5)
+28 verbose cwd /Users/ice/mvp-input
+29 verbose Darwin 19.6.0
+30 verbose argv "/usr/local/Cellar/node/15.0.1/bin/node" "/usr/local/bin/npm" "i" "--no-cache"
+31 verbose node v15.0.1
+32 verbose npm  v7.0.3
+33 error code EJSONPARSE
+34 error path /Users/ice/mvp-input/package.json
+35 error JSON.parse Unexpected token "}" (0x7D) in JSON at position 1626 while parsing near "...r-dom\": \"^5.2.0\",\n  },\n  \"jest\": {\n    \"..."
+36 error JSON.parse Failed to parse JSON data.
+36 error JSON.parse Note: package.json must be actual JSON, not just JavaScript.
+37 verbose exit 1

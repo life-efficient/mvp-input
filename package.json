@@ -14,7 +14,7 @@
   },
   "keywords": [],
   "author": {
-    "name" : "Ernesto Freyre",
+    "name": "Ernesto Freyre",
     "email": "ernestofreyreg@gmail.com",
     "url": "https://medium.com/@efreyreg"
   },
@@ -50,7 +50,8 @@
   },
   "peerDependencies": {
     "react": "^16",
-    "react-dom": "^16"
+    "react-dom": "^16",
+    "react-router-dom": "^5.2.0"
   },
   "jest": {
     "preset": "ts-jest",
@@ -72,5 +73,15 @@
       "afterAll",
       "jest"
     ]
+  },
+  "dependencies": {
+    "@date-io/date-fns": "^2.10.6",
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.56",
+    "@material-ui/pickers": "^3.2.10",
+    "aws-amplify": "^3.3.7",
+    "react-router-dom": "^5.2.0",
+    "rollup-plugin-jsx": "^1.0.3"
   }
 }

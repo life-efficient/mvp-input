@@ -1,0 +1,67 @@
+import {Meta, Story, Preview, Props} from '@storybook/addon-docs/blocks'
+
+import Form from './Form'
+import { BrowserRouter as Router } from "react-router-dom"
+
+<Meta title="Components/Form" component={MyComponent} />
+
+# MyComponent
+
+This is the `MyComponent`
+
+```jsx
+import { Form } from 'my-components'
+```
+
+<Preview withSource="open">
+  <Story name="MyComponent">
+    <Router>
+      <Route path='/' render={()=>'yo'} />
+      yoo
+      <Form 
+      redirect='redirected-path'
+      slides={[
+          {
+              title: 'Make an account',
+              questions: [
+                  {
+                      title: 'First name',
+                      type: 'text',
+                      id: 'forename',
+                  },
+                  {
+                      title: 'Last name',
+                      type: 'text',
+                      id: 'surname',
+                  },
+                  {
+                      title: 'Email',
+                      type: 'email',
+                      id: 'email',
+                  },
+                  {
+                      id: 'password',
+                      type: 'confirm-password',
+                  }
+              ],
+              onSubmit: async (e) => {
+                  console.log('signing up')
+              }
+          },
+        ]}
+      />
+    </Router>
+  </Story>
+</Preview>
+
+## Props
+
+<Props of={MyComponent} />
+
+## Using different Prop Name
+
+<Preview withSource="open">
+  <Story name="Different Prop Name">
+    <MyComponent name='Frances' />
+  </Story>
+</Preview>
