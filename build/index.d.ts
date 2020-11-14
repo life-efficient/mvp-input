@@ -1,3 +1,3 @@
 export * from './components/TestComponent';
-export * from "./components/Test";
-export * from './components/Form/Form';
+export { default as Test } from "./components/Test";
+export { default as Form } from './components/Form/Form';

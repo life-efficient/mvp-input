@@ -1,5 +1,10 @@
-import React from "react"
+import React, { useState } from "react"
 
-export default () => <div>
-    yoo
-</div>
+export default () => {
+
+    const [s, setS] = useState(0)
+
+    return <div>
+        yoo
+    </div>
+}

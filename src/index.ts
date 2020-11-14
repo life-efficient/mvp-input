@@ -1,6 +1,6 @@
 export * from './components/TestComponent';
 //@ts-ignore
-export * from "./components/Test"
+export { default as Test } from "./components/Test"
 
 // @ts-ignore
-export * from './components/Form/Form';
+export { default as Form } from './components/Form/Form';

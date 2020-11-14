@@ -1,7 +1,7 @@
 {
-  "name": "my-module",
+  "name": "mvp-input",
   "version": "1.0.0",
-  "description": "My Component Library template",
+  "description": "React component library for taking input",
   "main": "build/index.js",
   "module": "build/index.es.js",
   "jsnext:main": "build/index.es.js",
@@ -14,9 +14,9 @@
   },
   "keywords": [],
   "author": {
-    "name": "Ernesto Freyre",
-    "email": "ernestofreyreg@gmail.com",
-    "url": "https://medium.com/@efreyreg"
+    "name": "Harry Berg",
+    "email": "harryaberg@gmail.com",
+    "url": "https://harryaberg.com"
   },
   "license": "MIT",
   "devDependencies": {
@@ -35,8 +35,9 @@
     "jest": "^26.0.1",
     "prettier-standard": "^16.3.0",
     "react": "^16.13.1",
-    "react-docgen-typescript-loader": "^3.7.2",
+    "react-router-dom": "^5.2.0",
     "react-dom": "^16.13.1",
+    "react-docgen-typescript-loader": "^3.7.2",
     "rollup": "^2.8.2",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
@@ -46,12 +47,24 @@
     "standard-prettier": "^1.0.1",
     "ts-jest": "^25.5.1",
     "ts-loader": "^7.0.3",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "@material-ui/core": "^4.11.0",
+    "@date-io/date-fns": "^2.10.6",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.56",
+    "@material-ui/pickers": "^3.2.10",
+    "rollup-plugin-jsx": "^1.0.3"
   },
   "peerDependencies": {
     "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-router-dom": "^5.2.0"
+    "react-dom": "^17.0.0",
+    "react-router-dom": "^5.2.0",
+    "@material-ui/core": "^4.11.0",
+    "@date-io/date-fns": "^2.10.6",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.56",
+    "@material-ui/pickers": "^3.2.10",
+    "aws-amplify": "^3.3.7"
   },
   "jest": {
     "preset": "ts-jest",
@@ -75,13 +88,5 @@
     ]
   },
   "dependencies": {
-    "@date-io/date-fns": "^2.10.6",
-    "@material-ui/core": "^4.11.0",
-    "@material-ui/icons": "^4.9.1",
-    "@material-ui/lab": "^4.0.0-alpha.56",
-    "@material-ui/pickers": "^3.2.10",
-    "aws-amplify": "^3.3.7",
-    "react-router-dom": "^5.2.0",
-    "rollup-plugin-jsx": "^1.0.3"
   }
 }
