@@ -3,4 +3,4 @@ export * from './components/TestComponent';
 export * from "./components/Test"
 
 // @ts-ignore
-// export * from './components/Form/Form';
+export * from './components/Form/Form';
