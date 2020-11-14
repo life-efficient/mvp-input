@@ -1,5 +1,5 @@
 import React, { createElement, useState, createContext, forwardRef, Component, Fragment, useEffect } from 'react';
-import { Button, CircularProgress } from '@material-ui/core';
+import { withTheme, Button, CircularProgress } from '@material-ui/core';
 import { Redirect } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -2088,7 +2088,8 @@ const Form = props => {
 
     ])
 };
- //withTheme(Form)
 
-export { Form, MyComponent, Test };
+var Form$1 = withTheme(Form);
+
+export { Form$1 as Form, MyComponent, Test };
 //# sourceMappingURL=index.es.js.map

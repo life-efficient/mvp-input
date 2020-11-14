@@ -2101,9 +2101,10 @@ const Form = props => {
 
     ])
 };
- //withTheme(Form)
 
-exports.Form = Form;
+var Form$1 = core.withTheme(Form);
+
+exports.Form = Form$1;
 exports.MyComponent = MyComponent;
 exports.Test = Test;
 //# sourceMappingURL=index.js.map
