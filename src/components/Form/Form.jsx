@@ -238,4 +238,4 @@ const Form = props => {
     </div>
 }
 
-export default Form //withTheme(Form)
+export default withTheme(Form)
