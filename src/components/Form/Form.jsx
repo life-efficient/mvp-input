@@ -172,7 +172,7 @@ const Form = props => {
                                 {s.subtitle}
                             </div>
                         </div>
-                        <div css={css`display: flex; flex-direction: column;`}>
+                        {/* <div css={css`display: flex; flex-direction: column;`}>
                         {
                             s.questions.map((q) => {                         // map question slide (list of objects) to the questions
                                 if (Object.keys(q).includes('conditional')) { // if question is conditional on some other response
@@ -215,7 +215,7 @@ const Form = props => {
                                 }
                             })
                         }
-                        </div>
+                        </div> */}
                         <div className="error">
                             {error}
                         </div>
