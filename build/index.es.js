@@ -1,11 +1,11 @@
-import React, { createElement, useState, createContext, forwardRef, Component, Fragment } from 'react';
-import '@material-ui/core';
-import 'react-router-dom';
-import '@material-ui/core/TextField';
-import '@material-ui/core/InputAdornment';
-import '@material-ui/core/IconButton';
-import '@material-ui/icons/Visibility';
-import '@material-ui/icons/VisibilityOff';
+import React, { createElement, useState, createContext, forwardRef, Component, Fragment, useEffect } from 'react';
+import { Button, CircularProgress } from '@material-ui/core';
+import { Redirect } from 'react-router-dom';
+import TextField from '@material-ui/core/TextField';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 var MyComponent = function (_a) {
     var name = _a.name;
@@ -1698,6 +1698,14 @@ if (process.env.NODE_ENV !== 'production') {
   Emotion.displayName = 'EmotionCssPropInternal';
 }
 
+function css() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
+
+  return serializeStyles(args);
+}
+
 var classnames = function classnames(args) {
   var len = args.length;
   var i = 0;
@@ -1822,234 +1830,263 @@ var ClassNames = withEmotionCache(function (props, context) {
   });
 });
 
-//     return css`
-//         width: 100%;
-//         margin: 20px auto;
-//         width: 400px;
-//         max-width: 80%;
-//         border-radius: 3px;
+var TextResponse = (props) => TextField(Object.assign({className: "field", variant: "outlined"}, props, {label: props.title, onChange: (e)=>props.handleChange(props.id, e.target.value)}));
 
-//         position: relative;
-//         align-items: center;
-//         display: flex;
-//         // flex-direction: column;
-//         justify-content: center;
-//         background-color: ${props.theme.palette.primary.main};
-//         // background: linear-gradient(var(--color2), var(--color2g)); // doesn't work because forms have backgrounds and are placed on a panel in the login component so there is a color mismatch
-//         color: ${props.theme.palette.primary.contrastText};
+const Password = props => {
+    const [hidden, setHidden] = useState(true);
+    return TextResponse(Object.assign({}, props,
+        {type: hidden ? 'password' : 'text',
+        InputProps: {
+            endAdornment: InputAdornment({position: "end"}, [
+                IconButton({
+                    'aria-label': "toggle password visibility",
+                    onClick: ()=>{
+                        setHidden(!hidden);
+                        if (props.setHidden) {
+                            props.setHidden(!hidden); // for toggling hidden in ConfirmPassword component
+                        }
+                    }
+                }, [
+                    hidden ? Visibility() : VisibilityOff()
+                ])
+            ])
+        }})
+    )
+};
 
-//         display: flex;
-//         flex-direction: row;
-//         overflow-y: auto;
-//         overflow-x: hidden;
-//         justify-content: left;
+const ConfirmPassword = props => {
+    const [hidden, setHidden] = useState(true);
+    return [
+        Password(Object.assign({}, props, {title: "Password", setHidden: ()=>setHidden(!hidden)})),
+        TextResponse(Object.assign({}, props, {type: hidden ? 'password' : 'text', value: props.confirm_value, className: "field", variant: "outlined", id: "confirm-password", title: "Confirm password"}))
+    ]
+};
 
-//         .title {
-//             font-size: 30px;
-//             margin-bottom: 20px;
-//             font-weight: 900;
-//         }
+/* @jsx jsx */
 
-//         > .edit {
-//             position: absolute;
-//             height: 25px;
-//             right: 10px;
-//             top: 10px;
-//             cursor: pointer;
-//         }
+const getStyle = props => {
+    return css`
+        width: 100%;
+        margin: 20px auto;
+        width: 400px;
+        max-width: 80%;
+        border-radius: 3px;
 
-//         .slide {
-//             width: 100%;
-//             padding: 20px;
-//             transition-duration: 0.5s;
-//         }
+        position: relative;
+        align-items: center;
+        display: flex;
+        // flex-direction: column;
+        justify-content: center;
+        background-color: ${props.theme.palette.primary.main};
+        // background: linear-gradient(var(--color2), var(--color2g)); // doesn't work because forms have backgrounds and are placed on a panel in the login component so there is a color mismatch
+        color: ${props.theme.palette.primary.contrastText};
 
-//         .form {
+        display: flex;
+        flex-direction: row;
+        overflow-y: auto;
+        overflow-x: hidden;
+        justify-content: left;
 
-//             > .btn-container {
-//                 display: flex;
-//                 justify-content: center;
-//                 // margin: 0 100px;
-//             }
+        .title {
+            font-size: 30px;
+            margin-bottom: 20px;
+            font-weight: 900;
+        }
 
-//             .field {
-//                 margin: 10px 0;
-//             }
+        > .edit {
+            position: absolute;
+            height: 25px;
+            right: 10px;
+            top: 10px;
+            cursor: pointer;
+        }
 
-//             .error {
-//                 font-size: 1.7rem;
-//                 padding-bottom: 10px;
-//                 color: #ff6666;
-//                 font-weight: 900;
-//             }
+        .slide {
+            width: 100%;
+            padding: 20px;
+            transition-duration: 0.5s;
+        }
 
-//             input:-webkit-autofill,
-//             input:-webkit-autofill:hover,
-//             input:-webkit-autofill:focus,
-//             input:-webkit-autofill:active  {
-//                 -webkit-box-shadow: 0 0 0 30px ${props.theme.palette.primary.main} inset !important;
-//                 -webkit-text-fill-color: ${props.theme.palette.primary.contrastText};
-//             }
+        .form {
 
-//             .detail {
-//                 font-size: 1.5rem;
-//                 padding-bottom: 10px;
-//                 font-weight: 300
-//             }
+            > .btn-container {
+                display: flex;
+                justify-content: center;
+                // margin: 0 100px;
+            }
 
-//             .MuiFormControl-root.MuiTextField-root{
-//                 label{
-//                     color: ${props.theme.palette.primary.contrastText};
-//                     font-size: 1.5rem;
-//                 }
-//                 input{
-//                     font-size: 1.6rem;
-//                     color: ${props.theme.palette.primary.contrastText};
-//                 }
-//             }
+            .field {
+                margin: 10px 0;
+            }
 
-//             `
-// }
+            .error {
+                font-size: 1.7rem;
+                padding-bottom: 10px;
+                color: #ff6666;
+                font-weight: 900;
+            }
+
+            input:-webkit-autofill,
+            input:-webkit-autofill:hover,
+            input:-webkit-autofill:focus,
+            input:-webkit-autofill:active  {
+                -webkit-box-shadow: 0 0 0 30px ${props.theme.palette.primary.main} inset !important;
+                -webkit-text-fill-color: ${props.theme.palette.primary.contrastText};
+            }
+
+            .detail {
+                font-size: 1.5rem;
+                padding-bottom: 10px;
+                font-weight: 300
+            }
+
+            .MuiFormControl-root.MuiTextField-root{
+                label{
+                    color: ${props.theme.palette.primary.contrastText};
+                    font-size: 1.5rem;
+                }
+                input{
+                    font-size: 1.6rem;
+                    color: ${props.theme.palette.primary.contrastText};
+                }
+            }
+
+            `
+};
 
 const Form = props => {
-    return React.createElement('div', null, ["helloo"])
 
-    // const [responses, setResponses] = useState({})
-    // const [slide_idx, setSlideIdx] = useState(0)
-    // const [loading, setLoading] = useState(false)
-    // const [error, setError] = useState()
+    const [responses, setResponses] = useState({});
+    const [slide_idx, setSlideIdx] = useState(0);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState();
 
-    // const handleChange = (id, value) => {
-    //     setResponses({...responses, [id]: value})
-    // }
+    const handleChange = (id, value) => {
+        setResponses({...responses, [id]: value});
+    };
 
-    // const validate = () => true
+    const submit = async () => {
+        {      // do basic validation based on field type
+            setLoading(true);
+            let onSubmit = props.slides[slide_idx].onSubmit;
+            try {
+                if (onSubmit) {
+                    let e = {};
+                    for (var k in responses) {
+                        if (responses[k] == '') {continue} // remove empty responses
+                        e[k] = responses[k];
+                    }
+                    await onSubmit(e);
+                }                  // validate + do extra stuff
+                console.log('both internal and external validation successful');
+                setSlideIdx(slide_idx + 1);
+            }
+            catch (error) {
+                console.debug('An external error occured:', error);
+                setError(error.message);
+            }
+            setLoading(false);
+        }
+    };
 
-    // const submit = async () => {
-    //     if (validate()) {      // do basic validation based on field type
-    //         setLoading(true)
-    //         let onSubmit = props.slides[slide_idx].onSubmit
-    //         try {
-    //             if (onSubmit) {
-    //                 let e = {}
-    //                 for (var k in responses) {
-    //                     if (responses[k] == '') {continue} // remove empty responses
-    //                     e[k] = responses[k]
-    //                 }
-    //                 await onSubmit(e)
-    //             }                  // validate + do extra stuff
-    //             console.log('both internal and external validation successful')
-    //             setSlideIdx(slide_idx + 1)
-    //         }
-    //         catch (error) {
-    //             console.debug('An external error occured:', error)
-    //             setError(error.message)
-    //         }
-    //         setLoading(false)
-    //     }
-    //     else {
-    //         console.debug('internal validation failed')
-    //     }
-    // }
+    useEffect(()=>{ // initialise responses
+        props.slides.map(s=>s.questions).flat().forEach(q=>{
+            responses[q.id] = q.default || '';
+            if (q.type == 'confirm-password') {
+                responses['confirm-password'] = '';
+            }
+        });
+    }, []);
 
-    // useEffect(()=>{ // initialise responses
-    //     props.slides.map(s=>s.questions).flat().forEach(q=>{
-    //         responses[q.id] = q.default || ''
-    //         if (q.type == 'confirm-password') {
-    //             responses['confirm-password'] = ''
-    //         }
-    //     })
-    // }, [])
+    useEffect(()=>console.log(responses), [responses]);
 
-    // useEffect(()=>console.log(responses), [responses])
+    if (slide_idx > props.slides.length - 1) { // if finished
+        if (props.redirect) {
+            console.log('redirecting to:', props.redirect);
+            return Redirect({to: props.redirect})
+        }
+        else {
+            if (props.stay) {setSlideIdx(slide_idx - 1);} // stay on last slide
+            else {return null}
+        }
+    }
 
-    // if (slide_idx > props.slides.length - 1) { // if finished
-    //     if (props.redirect) {
-    //         console.log('redirecting to:', props.redirect)
-    //         return <Redirect to={props.redirect}/>
-    //     }
-    //     else {
-    //         if (props.stay) {setSlideIdx(slide_idx - 1)} // stay on last slide
-    //         else {return null}
-    //     }
-    // }
+    return React.createElement('div', {css: getStyle(props)}, [
 
-    // return <div css={getStyle(props)} >
-    //     {
-    //         props.slides.map((s) => {              // map question slides to that form slide
-    //             // console.log('question slide:', s)
-    //             return <div className="slide" style={{transform: `translateX(-${100 * slide_idx}%)`}}>
-    //                 <div className="form" >
-    //                     <div style={{fontSize: '30px', marginBottom: '20px', fontWeight: '900'}}>
-    //                         {s.title}
-    //                         <div className='detail'>
-    //                             {s.subtitle}
-    //                         </div>
-    //                     </div>
-    //                     <div css={css`display: flex; flex-direction: column;`}>
-    //                     {
-    //                         s.questions.map((q) => {                         // map question slide (list of objects) to the questions
-    //                             if (Object.keys(q).includes('conditional')) { // if question is conditional on some other response
-    //                                 if (responses[q.conditional.id] != q.conditional.value) {// if condition not satisfied
-    //                                     return null // don't render it
-    //                                 }
-    //                             }
-    //                             q = {...q, value: responses[q.id]}
-    //                             switch (q.type) {
-    //                                 case "text":
-    //                                     return <TextResponse {...q} handleChange={handleChange} />
-    //                                 // case "number":
-    //                                 //     return <TextResponse {...q} handleChange={handleNumChange} />
-    //                                 // case "phone-number":
-    //                                 //     return <TextResponse {...q} handleChange={handleNumChange} />
-    //                                 case "email":
-    //                                     return <TextResponse {...q} handleChange={handleChange}/>
-    //                                 case "password":
-    //                                     return <Password {...q} handleChange={handleChange}/>
-    //                                 case "confirm-password":
-    //                                     return <ConfirmPassword {...q} confirm_value={responses[`confirm-password`]} handleChange={handleChange}/>
-    //                                 // case "dropdown":
-    //                                 //     return <DropDown {...q} handleChange={handleOptionChange} />
-    //                                 // // case "location":
-    //                                 // //     return <LocationField />
-    //                                 // case "date":
-    //                                 //     return <DateField {...q} handleChange={(e)=>{handleDateChange(e, q.id)}} />
-    //                                 // case "time":
-    //                                 //     return <Time {...q} handleChange={(e)=>{handleTimeChange(e, q.id)}} />
-    //                                 // case "file":
-    //                                 //     return <FileUpload {...q} handleChange={handleCustomChange}/>
-    //                                 // case "image":
-    //                                 //     return <FileUpload {...q} handleChange={handleCustomChange}/>
-    //                                 // case "rating":
-    //                                 //     return <RatingField {...q} handleChange={handleRatingChange} />
-    //                                 // case "colour-picker":
-    //                                 //     return <ColourPicker {...q} handleChange={handleCustomChange} />
-    //                                 default:
-    //                                     return `${q.type} IS NOT A VALID QUESTION TYPE`
-    //                             }
-    //                         })
-    //                     }
-    //                     </div>
-    //                     <div className="error">
-    //                         {error}
-    //                     </div>
-    //                     <div className='detail'>
-    //                         {s.detail}
-    //                     </div>
+            props.slides.map((s) => {              // map question slides to that form slide
+                // console.log('question slide:', s)
+                return React.createElement('div', {className: "slide", style: {transform: `translateX(-${100 * slide_idx}%)`}}, [
+                    React.createElement('div', {className: "form"}, [
+                        React.createElement('div', {style: {fontSize: '30px', marginBottom: '20px', fontWeight: '900'}}, [
+                            s.title,
+                            React.createElement('div', {className: "detail"}, [
+                                s.subtitle
+                            ])
+                        ]),
+                        React.createElement('div', {css: css`display: flex; flex-direction: column;`}, [
 
-    //                     <div className="btn-container">
-    //                         <Button color="secondary" size="large" variant="contained" className="submit" text='Submit' onClick={submit} >
-    //                             {
-    //                                 loading ? <CircularProgress/> :
-    //                                 props.submit_label ? props.submit_label : 'Submit'
-    //                             }
-    //                         </Button>
-    //                     </div>
-    //                 </div>
-    //             </div>
-    //         })
-    //     }
-    // </div>
+                            s.questions.map((q) => {                         // map question slide (list of objects) to the questions
+                                if (Object.keys(q).includes('conditional')) { // if question is conditional on some other response
+                                    if (responses[q.conditional.id] != q.conditional.value) {// if condition not satisfied
+                                        return null // don't render it
+                                    }
+                                }
+                                q = {...q, value: responses[q.id]};
+                                switch (q.type) {
+                                    case "text":
+                                        return TextResponse(Object.assign({}, q, {handleChange: handleChange}))
+                                    // case "number":
+                                    //     return <TextResponse {...q} handleChange={handleNumChange} />
+                                    // case "phone-number":
+                                    //     return <TextResponse {...q} handleChange={handleNumChange} />
+                                    case "email":
+                                        return TextResponse(Object.assign({}, q, {handleChange: handleChange}))
+                                    case "password":
+                                        return Password(Object.assign({}, q, {handleChange: handleChange}))
+                                    case "confirm-password":
+                                        return ConfirmPassword(Object.assign({}, q, {confirm_value: responses[`confirm-password`], handleChange: handleChange}))
+                                    // case "dropdown":
+                                    //     return <DropDown {...q} handleChange={handleOptionChange} />
+                                    // // case "location":
+                                    // //     return <LocationField />
+                                    // case "date":
+                                    //     return <DateField {...q} handleChange={(e)=>{handleDateChange(e, q.id)}} />
+                                    // case "time":
+                                    //     return <Time {...q} handleChange={(e)=>{handleTimeChange(e, q.id)}} />
+                                    // case "file":
+                                    //     return <FileUpload {...q} handleChange={handleCustomChange}/>
+                                    // case "image":
+                                    //     return <FileUpload {...q} handleChange={handleCustomChange}/>
+                                    // case "rating":
+                                    //     return <RatingField {...q} handleChange={handleRatingChange} />
+                                    // case "colour-picker":
+                                    //     return <ColourPicker {...q} handleChange={handleCustomChange} />
+                                    default:
+                                        return `${q.type} IS NOT A VALID QUESTION TYPE`
+                                }
+                            })
+
+                        ]),
+                        React.createElement('div', {className: "error"}, [
+                            error
+                        ]),
+                        React.createElement('div', {className: "detail"}, [
+                            s.detail
+                        ]),
+
+                        React.createElement('div', {className: "btn-container"}, [
+                            Button({color: "secondary", size: "large", variant: "contained", className: "submit", text: "Submit", onClick: submit}, [
+
+                                    loading ? CircularProgress() :
+                                    props.submit_label ? props.submit_label : 'Submit'
+
+                            ])
+                        ])
+                    ])
+                ])
+            })
+
+    ])
 };
  //withTheme(Form)
 
